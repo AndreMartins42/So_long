@@ -1,17 +1,12 @@
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 14:29:13 by anmendes          #+#    #+#             */
+/*   Updated: 2025/01/25 14:29:13 by anmendes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*void flood_fill(char **map, int x, int y)
-{
-    if (x < 0 || y < 0 || !map[y] || !map[y][x])
-        return;
-    if (map[y][x] == '1' || map[y][x] == 'V')
-        return;
-    map[y][x] = 'V';
-    flood_fill(map, x + 1, y);
-    flood_fill(map, x - 1, y);
-    flood_fill(map, x, y + 1);
-    flood_fill(map, x, y - 1);
-}*/

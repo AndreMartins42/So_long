@@ -6,7 +6,7 @@
 /*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 08:03:16 by marvin            #+#    #+#             */
-/*   Updated: 2024/11/30 11:40:02 by anmendes         ###   ########.fr       */
+/*   Updated: 2025/01/25 15:40:00 by anmendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 int		ft_strlen(char *str);
 
-int ft_check_map(int fd);
-int ft_count_line(int fd);
+
+
 char **ft_fill(int fd);
-int ft_check_map(int fd);
+int ft_count_line(int fd);
+int ft_map_wall(char **map, int fd);
+int ft_validate_flood(char **map);
 void ft_free_map(char **map);
 void flood_fill(char **map, int x, int y);
+int ft_validate_map(char **map);
 
 #endif
