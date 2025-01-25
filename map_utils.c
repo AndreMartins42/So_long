@@ -7,6 +7,8 @@ int ft_validate_flood(char **map)
     int j;
     int c;
     int e;
+    int pi;
+    int pj;
 
     i = 0;
     p = 0;
@@ -18,10 +20,14 @@ int ft_validate_flood(char **map)
         while (map[i][j])
         {
             if (map[i][j] == 'P')
+            {
                 p++;
-            else if(map[i][j] == 'C')
+                pi = i;
+                pj = j;
+            }
+            else if (map[i][j] == 'C')
                 c++;
-            else if(map[i][j] == 'E')
+            else if (map[i][j] == 'E')
                 e++;
             j++;
         }
@@ -29,17 +35,19 @@ int ft_validate_flood(char **map)
     }
     if (p == 1 && c > 0 && e == 1)
     {
-        flood_fill(map, j, i);
-        flood_fill_check(map)
+        flood_fill(map, pi, pj);
+        flood_fill_check(map);
     }
-    ft_free_map(map)
+    return (1);
+    ft_free_map(map);
 }
 
-int flood_fill_check(int p, int c, int e, char **map)
+int flood_fill_check(char **map)
 {
     int i;
     int j;
-    
+
+    j = 0;
     i = 0;
     while(map[i])
     {
@@ -51,8 +59,11 @@ int flood_fill_check(int p, int c, int e, char **map)
                 flood_fill(map, i, j);
                 return (ft_validate_map(map));
             }
+            j++;
         }
+        i++;
     }
+    return (1);
 
 }
 
