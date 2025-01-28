@@ -10,24 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include "get_next_line.h"
+#include "so_long.h"
 
 int	ft_check_map(int fd)
 {
 	int		i;
-	int		lines;
 	int		largura;
 	char	**map;
 
 	fd = open("map_0.ber", O_RDONLY);
 	if (fd == -1)
 		return (0);
-	map = ft_fill(fd);
+	map = ft_read_map(fd);
 	i = 0;
-	lines = ft_count_line(fd);
 	largura = ft_strlen(map[0]);
 	while (map[i])
 	{
@@ -36,69 +31,23 @@ int	ft_check_map(int fd)
 		i++;
 	}
 	if (ft_map_wall(map, fd) == 1)
-		return (printf("Mapa invalido\n"), 1);
-	if (ft_validate_flood(map) == 1)
-		return (printf("Mapa invalido\n"), 1);
-	return (printf("mapa valido \n"), 0);
+		return (printf("Mapa invalido wall\n"), ft_free_map(map), 1);
+	if (flood_fill_check(map) == 1)
+		return (printf("Mapa invalido flood fill\n"), ft_free_map(map), 1);
+	return (printf("mapa valido \n"), ft_free_map(map), 0);
 }
-
-int	ft_map_wall(char **map, int fd)
+int flood_fill_check(char **map)
 {
-	int	j;
-	int	i;
-	int	lines;
-	int	largura;
+    int pi;
+    int pj;
 
-	lines = ft_count_line(fd);
-	largura = ft_strlen(map[0]);
-	j = -1;
-	while (map[0][++j])
-	{
-		if (map[0][j] != '1' && map[0][j] != 'E')
-			return (printf("Parede superior invalida\n"), ft_free_map(map), 1);
-		if (map[lines - 1][j] != '1' && map[lines - 1][j] != 'E')
-			return (printf("Parede inferior invalida\n"), ft_free_map(map), 1);
-	}
-	i = -1;
-	while (map[++i])
-	{
-		if (map[i][0] != '1' && map[i][0] != 'E')
-			return (printf("Parede esquerda invalida\n"), ft_free_map(map), 1);
-		if (map[i][largura - 1] != '1' && map[i][largura - 1] != 'E')
-			return (printf("Parede direita invalida\n"), ft_free_map(map), 1);
-	}
-	return (0);
-}
-
-void	flood_fill(char **map, int x, int y)
-{
-	if (x < 0 || y < 0 || !map[y] || !map[y][x])
-		return ;
-	if (map[y][x] == '1' || map[y][x] == 'V')
-		return ;
-	map[y][x] = 'V';
-	flood_fill(map, x + 1, y);
-	flood_fill(map, x - 1, y);
-	flood_fill(map, x, y + 1);
-	flood_fill(map, x, y - 1);
-}
-
-int	ft_validate_map(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] != '1' && map[i][j] != 'V')
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+    if (validate_map_elements(map) == 1)
+        return (1);
+    if (validate_elements_counts(map) == 1)
+        return (1);
+    find_player(map, &pi, &pj);
+    flood_fill(map, pi, pj);
+    //if (ft_validate_map_flood_fill(map) == 1)
+       // return (1); ACHO QUE NAO PRECISO DESTA FUNCAO
+    return (0);
 }
