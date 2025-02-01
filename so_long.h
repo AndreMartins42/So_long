@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 08:03:16 by marvin            #+#    #+#             */
-/*   Updated: 2025/01/25 15:40:00 by anmendes         ###   ########.fr       */
+/*   Updated: 2025/02/01 10:41:17 by anmendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,20 @@ char	*ft_strdup(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 int		ft_strlen(char *str);
-int	    ft_check_map(int fd);
-int     flood_fill_check(char **map);
+int		ft_check_map(int fd);
+int		flood_fill_check(char **map);
 void	flood_fill(char **map, int x, int y);
-int	    ft_validate_map_flood_fill(char **map);
-void    find_player(char **map, int *pi, int *pj);
-char    **ft_read_map(int fd);
-int     ft_count_line(int fd);
-int	    ft_map_wall(char **map, int fd);
-void    ft_free_map(char **map);
-int     ft_validate_char(char c);
-int     validate_map_elements(char **map);
-int     validate_elements_counts(char **map);
-int     validate_player_count(char **map);
-int     validate_coins_count(char **map);
-int     validate_exit_count(char **map);
-
+int		ft_validate_map_flood_fill(char **map);
+void	find_player(char **map, int *pi, int *pj);
+char	**ft_read_map(int fd);
+int		ft_count_line(int fd);
+int		ft_map_wall(char **map, int fd);
+void	ft_free_map(char **map);
+int		ft_validate_char(char c);
+int		validate_map_elements(char **map);
+int		validate_elements_counts(char **map);
+int		validate_player_count(char **map);
+int		validate_coins_count(char **map);
+int		validate_exit_count(char **map);
 
 #endif

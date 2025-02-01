@@ -36,18 +36,19 @@ int	ft_check_map(int fd)
 		return (printf("Mapa invalido flood fill\n"), ft_free_map(map), 1);
 	return (printf("mapa valido \n"), ft_free_map(map), 0);
 }
-int flood_fill_check(char **map)
-{
-    int pi;
-    int pj;
 
-    if (validate_map_elements(map) == 1)
-        return (1);
-    if (validate_elements_counts(map) == 1)
-        return (1);
-    find_player(map, &pi, &pj);
-    flood_fill(map, pi, pj);
-    //if (ft_validate_map_flood_fill(map) == 1)
-       // return (1); ACHO QUE NAO PRECISO DESTA FUNCAO
-    return (0);
+int	flood_fill_check(char **map)
+{
+	int	pi;
+	int	pj;
+
+	if (validate_map_elements(map) == 1)
+		return (1);
+	if (validate_elements_counts(map) == 1)
+		return (1);
+	find_player(map, &pi, &pj);
+	flood_fill(map, pi, pj);
+	if (ft_validate_map_flood_fill(map) == 1)
+		return (1);
+	return (0);
 }

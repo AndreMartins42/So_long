@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_flood_fill.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/01 10:37:44 by anmendes          #+#    #+#             */
+/*   Updated: 2025/02/01 10:37:44 by anmendes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	flood_fill(char **map, int x, int y)
@@ -12,6 +24,7 @@ void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x, y + 1);
 	flood_fill(map, x, y - 1);
 }
+
 int	ft_validate_map_flood_fill(char **map)
 {
 	int	i;
@@ -25,29 +38,30 @@ int	ft_validate_map_flood_fill(char **map)
 		{
 			if (map[i][j] == '1' || map[i][j] == 'V')
 				j++;
-			else 
+			else
 				return (1);
 		}
 	}
 	return (0);
 }
-void find_player(char **map, int *pi, int *pj)
-{
-    int i;
-    int j;
 
-    i = -1;
-    while (map[++i])
-    {
-        j = -1;
-        while (map[i][++j])
-        {
-            if (map[i][j] == 'P')
-            {
-                *pi = i;
-                *pj = j;
-                return ;
-            }
-        }
-    }
+void	find_player(char **map, int *pi, int *pj)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] == 'P')
+			{
+				*pi = i;
+				*pj = j;
+				return ;
+			}
+		}
+	}
 }

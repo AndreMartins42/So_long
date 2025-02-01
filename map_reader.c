@@ -1,46 +1,64 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_reader.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/01 10:31:55 by anmendes          #+#    #+#             */
+/*   Updated: 2025/02/01 10:31:55 by anmendes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-char **ft_read_map(int fd)
+char	**ft_read_map(int fd)
 {
-    int i = 0;
-    char *line;
-    char **map;
-    size_t len;
+	int		i;
+	char	*line;
+	char	**map;
+	size_t	len;
 
-    fd = open("map_0.ber", O_RDONLY);
-    if(fd == -1)
-        return (0);
-    map = malloc(sizeof(char *) * (ft_count_line(fd) + 1));
-    if(map == NULL)
-        return (0);
-    while ((line = get_next_line(fd)) != NULL)
+	i = 0;
+	fd = open("map_0.ber", O_RDONLY);
+	if (fd == -1)
+		return (0);
+	map = malloc(sizeof(char *) * (ft_count_line(fd) + 1));
+	if (map == NULL)
+		return (0);
+	line = get_next_line(fd);
+	while (line)
 	{
-        len = ft_strlen(line);
-        if (len > 0 && line[len - 1] == '\n')
-            line[len - 1] = '\0';
+		len = ft_strlen(line);
+		if (len > 0 && line[len - 1] == '\n')
+			line[len - 1] = '\0';
 		map[i] = line;
+		line = get_next_line(fd);
 		i++;
 	}
 	map[i] = NULL;
-    close(fd);
-    return (map);
+	close(fd);
+	return (map);
 }
-int ft_count_line(int fd)
-{
-    int i;
-    char *line;
 
-    i = 0;
-    fd = open("map_0.ber", O_RDONLY);
-    if (fd == -1)
-        return (0);
-    while ((line = get_next_line(fd)) != NULL )
+int	ft_count_line(int fd)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	fd = open("map_0.ber", O_RDONLY);
+	if (fd == -1)
+		return (0);
+	line = get_next_line(fd);
+	while (line)
 	{
 		i++;
 		free(line);
+		line = get_next_line(fd);
 	}
-    close(fd);
-    return (i);
+	close(fd);
+	return (i);
 }
 
 int	ft_map_wall(char **map, int fd)
@@ -71,20 +89,22 @@ int	ft_map_wall(char **map, int fd)
 	return (0);
 }
 
-void ft_free_map(char **map)
+void	ft_free_map(char **map)
 {
-    int i = 0;
+	int	i;
 
-    while (map[i])
-    {
-        free(map[i]);
-        i++;
-    }
-    free(map);
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }
-int ft_validate_char(char c)
+
+int	ft_validate_char(char c)
 {
-    if (c == 'P' || c == 'C' || c == 'E' || c == '1' || c == '0')
-        return (0);
-    return (1);
+	if (c == 'P' || c == 'C' || c == 'E' || c == '1' || c == '0')
+		return (0);
+	return (1);
 }
