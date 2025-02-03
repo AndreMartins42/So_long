@@ -6,17 +6,27 @@
 /*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 08:03:16 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/01 10:41:17 by anmendes         ###   ########.fr       */
+/*   Updated: 2025/02/03 20:10:52 by anmendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+#define WIDTH 600
+#define HEIGHT 800
 
+# include "./minilibx-linux/mlx.h"
+# include <X11/keysym.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+typedef	struct	s_vars
+{
+	void	*mlx;
+	void	*win;
+}	t_vars;
 
 char	*get_next_line(int fd);
 char	*read_file(int fd, char *cache);
@@ -42,5 +52,9 @@ int		validate_elements_counts(char **map);
 int		validate_player_count(char **map);
 int		validate_coins_count(char **map);
 int		validate_exit_count(char **map);
+int		mouse(t_vars *data);
+int		keyboard(int keysym, t_vars *data);
+
+
 
 #endif
