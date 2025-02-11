@@ -6,7 +6,7 @@
 /*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 08:03:16 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/08 14:00:01 by anmendes         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:31:20 by anmendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,35 @@
 
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
-# include <X11/keysym.h>
+//# include <X11/keysym.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 
 typedef struct s_window {
-    void *mlx;    
-    void *win;    
-    int width; 
-    int height;
-} t_window;
+    void    *mlx;    
+    void    *win;
+    void    *player_img;    
+    void    *exit_img;    
+    void    *collect_img;    
+    void    *floor_img;    
+    void    *wall_img;    
+    int     width; 
+    int     height;
+}   t_window;
 
-typedef struct s_img_x {
+/* typedef struct s_img_x { 
+    void *player;//P
+    void *collect;//C
+    void *exit; //E
+    void *floor; //0
+    void *wall;
     void *image;    
     int width; 
     int height; 
 } t_img_x;
-
+ */
 
 char	*get_next_line(int fd);
 char	*read_file(int fd, char *cache);
@@ -61,6 +71,7 @@ int		validate_coins_count(char **map);
 int		validate_exit_count(char **map);
 int		mouse(t_window *data);
 int		keyboard(int keysym, t_window *data);
+void render_map(t_window *game, char **map);
 
 
 
