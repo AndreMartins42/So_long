@@ -45,21 +45,21 @@ int	ft_validate_map_flood_fill(char **map)
 	return (0);
 }
 
-void	find_player(char **map, int *pi, int *pj)
+void	find_player(char **map, t_player *player)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = -1;
-	while (map[++i])
+	y = -1;
+	while (map[++y])
 	{
-		j = -1;
-		while (map[i][++j])
+		x = -1;
+		while (map[x][++x])
 		{
-			if (map[i][j] == 'P')
+			if (map[y][x] == 'P')
 			{
-				*pi = i;
-				*pj = j;
+				player->x = y;
+				player->y = x;
 				return ;
 			}
 		}

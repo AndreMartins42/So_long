@@ -6,12 +6,24 @@
 /*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2424/02/08 10:57:35 by anmendes          #+#    #+#             */
-/*   Updated: 2025/02/11 19:38:16 by anmendes         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:55:35 by anmendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <stdio.h>
+
+void move_player_up(int x, int y, t_player *player)
+{
+	if (map[player->y + y][player->x + x] != '1')
+	{
+		map[player->y][player->x] = '0';
+		player->x += x;
+		player->y += y;
+		map[player->y][player->x] = 'P';
+		render_map();		
+	}
+}
 
 int	keyboard(int keysym, t_window *window)
 {
@@ -22,6 +34,8 @@ int	keyboard(int keysym, t_window *window)
         free(window->mlx);
 		return (0);
     }
+	else if (keysym == 119)
+		move_player_up();
     return (1);
 }
 

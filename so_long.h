@@ -6,7 +6,7 @@
 /*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 08:03:16 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/11 19:31:20 by anmendes         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:49:48 by anmendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ typedef struct s_window {
     int     width; 
     int     height;
 }   t_window;
+
+typedef struct s_player
+{
+    int x;
+    int y;
+} t_player;
 
 /* typedef struct s_img_x { 
     void *player;//P
