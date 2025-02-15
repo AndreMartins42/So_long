@@ -6,7 +6,7 @@
 /*   By: anmendes <anmendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 08:03:16 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/11 19:49:48 by anmendes         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:48:46 by anmendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,44 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_window {
-    void    *mlx;    
-    void    *win;
-    void    *player_img;    
-    void    *exit_img;    
-    void    *collect_img;    
-    void    *floor_img;    
-    void    *wall_img;    
-    int     width; 
+
+typedef struct s_map 
+{   
+    char    **map_data;
+    int     width;
     int     height;
-}   t_window;
+}   t_map;
 
 typedef struct s_player
 {
     int x;
     int y;
-} t_player;
+}   t_player;
+
+typedef struct s_window {
+    void    *mlx;    
+    void    *win;
+    int     width; 
+    int     height;
+}   t_window;
+
+typedef struct s_imgs
+{
+    void    *player_img;    
+    void    *exit_img;    
+    void    *collect_img;    
+    void    *floor_img;    
+    void    *wall_img;   
+}   t_imgs;
+
+typedef struct s_game 
+{
+    t_window    *window;
+    t_map       *map;
+    t_player    *player;
+    t_imgs      *imgs;
+}   t_game;
+
 
 /* typedef struct s_img_x { 
     void *player;//P
@@ -60,24 +81,25 @@ char	*ft_strdup(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 int		ft_strlen(char *str);
-int		ft_check_map(int fd);
-int		flood_fill_check(char **map);
-void	flood_fill(char **map, int x, int y);
-int		ft_validate_map_flood_fill(char **map);
-void	find_player(char **map, int *pi, int *pj);
-char	**ft_read_map(int fd);
-int		ft_count_line(int fd);
-int		ft_map_wall(char **map, int fd);
-void	ft_free_map(char **map);
+int     ft_check_map(char *file_path);
+int		flood_fill_check(t_map *map);
+void	flood_fill(t_map *map, int x, int y);
+int		ft_validate_map_flood_fill(t_map *map);
+void	find_player(t_map *map, t_player *player);
+char	**ft_read_map(int fd, char *file_path);
+int	ft_count_line(int fd, char *file_path);
+int	ft_map_wall(t_map *map, int fd, char *file_path);
+void	ft_free_map(t_map *map);
 int		ft_validate_char(char c);
-int		validate_map_elements(char **map);
-int		validate_elements_counts(char **map);
-int		validate_player_count(char **map);
-int		validate_coins_count(char **map);
-int		validate_exit_count(char **map);
-int		mouse(t_window *data);
-int		keyboard(int keysym, t_window *data);
-void render_map(t_window *game, char **map);
+int		validate_map_elements(t_map *map);
+int		validate_elements_counts(t_map *map);
+int		validate_player_count(t_map *map);
+int		validate_coins_count(t_map *map);
+int		validate_exit_count(t_map *map);
+int		mouse(t_game *game);
+int     keyboard(int keysym, t_game *game);
+void    render_map(t_game *game);
+t_game *init_game(void);
 
 
 

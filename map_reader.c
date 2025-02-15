@@ -12,42 +12,43 @@
 
 #include "so_long.h"
 
-char	**ft_read_map(int fd)
+char	**ft_read_map(int fd, char *file_path)
 {
 	int		i;
 	char	*line;
-	char	**map;
+	t_map	*map;
 	size_t	len;
 
 	i = 0;
-	fd = open("map_0.ber", O_RDONLY);
+	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
 		return (0);
-	map = malloc(sizeof(char *) * (ft_count_line(fd) + 1));
-	if (map == NULL)
-		return (0);
+	map = malloc(sizeof(t_map));
+	map->map_data = malloc(sizeof(char *) * (ft_count_line(fd, file_path) + 1));
+	if (!map->map_data)
+		return (close(fd), NULL);
 	line = get_next_line(fd);
 	while (line)
 	{
 		len = ft_strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
-		map[i] = line;
+		map->map_data[i] = line;
 		line = get_next_line(fd);
 		i++;
 	}
-	map[i] = NULL;
+	map->map_data[i] = NULL;
 	close(fd);
-	return (map);
+	return (map->map_data);
 }
 
-int	ft_count_line(int fd)
+int	ft_count_line(int fd, char *file_path)
 {
 	int		i;
 	char	*line;
 
 	i = 0;
-	fd = open("map_0.ber", O_RDONLY);
+	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	line = get_next_line(fd);
@@ -61,45 +62,45 @@ int	ft_count_line(int fd)
 	return (i);
 }
 
-int	ft_map_wall(char **map, int fd)
+int	ft_map_wall(t_map *map, int fd, char *file_path)
 {
 	int	j;
 	int	i;
 	int	lines;
 	int	largura;
 
-	lines = ft_count_line(fd);
-	largura = ft_strlen(map[0]);
+	lines = ft_count_line(fd, file_path);
+	largura = ft_strlen(map->map_data[0]);
 	j = -1;
-	while (map[0][++j])
+	while (map->map_data[0][++j])
 	{
-		if (map[0][j] != '1' && map[0][j] != 'E')
+		if (map->map_data[0][j] != '1' && map->map_data[0][j] != 'E')
 			return (1);
-		if (map[lines - 1][j] != '1' && map[lines - 1][j] != 'E')
+		if (map->map_data[lines - 1][j] != '1' && map->map_data[lines - 1][j] != 'E')
 			return (1);
 	}
 	i = -1;
-	while (map[++i])
+	while (map->map_data[++i])
 	{
-		if (map[i][0] != '1' && map[i][0] != 'E')
+		if (map->map_data[i][0] != '1' && map->map_data[i][0] != 'E')
 			return (1);
-		if (map[i][largura - 1] != '1' && map[i][largura - 1] != 'E')
+		if (map->map_data[i][largura - 1] != '1' && map->map_data[i][largura - 1] != 'E')
 			return (1);
 	}
 	return (0);
 }
 
-void	ft_free_map(char **map)
+void	ft_free_map(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (map->map_data[i])
 	{
-		free(map[i]);
+		free(map->map_data[i]);
 		i++;
 	}
-	free(map);
+	free(map->map_data);
 }
 
 int	ft_validate_char(char c)

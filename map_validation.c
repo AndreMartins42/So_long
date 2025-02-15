@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	validate_player_count(char **map)
+int	validate_player_count(t_map	*map)
 {
 	int	i;
 	int	j;
@@ -20,19 +20,19 @@ int	validate_player_count(char **map)
 
 	i = -1;
 	p = 0;
-	while (map[++i])
+	while (map->map_data[++i])
 	{
 		j = -1;
-		while (map[i][++j])
+		while (map->map_data[i][++j])
 		{
-			if (map[i][j] == 'P')
+			if (map->map_data[i][j] == 'P')
 				p++;
 		}
 	}
 	return (p);
 }
 
-int	validate_coins_count(char **map)
+int	validate_coins_count(t_map *map)
 {
 	int	i;
 	int	j;
@@ -40,19 +40,19 @@ int	validate_coins_count(char **map)
 
 	i = -1;
 	c = 0;
-	while (map[++i])
+	while (map->map_data[++i])
 	{
 		j = -1;
-		while (map[i][++j])
+		while (map->map_data[i][++j])
 		{
-			if (map[i][j] == 'C')
+			if (map->map_data[i][j] == 'C')
 				c++;
 		}
 	}
 	return (c);
 }
 
-int	validate_exit_count(char **map)
+int	validate_exit_count(t_map *map)
 {
 	int	i;
 	int	j;
@@ -60,37 +60,37 @@ int	validate_exit_count(char **map)
 
 	i = -1;
 	e = 0;
-	while (map[++i])
+	while (map->map_data[++i])
 	{
 		j = -1;
-		while (map[i][++j])
+		while (map->map_data[i][++j])
 		{
-			if (map[i][j] == 'E')
+			if (map->map_data[i][j] == 'E')
 				e++;
 		}
 	}
 	return (e);
 }
 
-int	validate_map_elements(char **map)
+int	validate_map_elements(t_map *map)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (map[++i])
+	while (map->map_data[++i])
 	{
 		j = -1;
-		while (map[i][++j])
+		while (map->map_data[i][++j])
 		{
-			if (ft_validate_char(map[i][j]) == 1)
+			if (ft_validate_char(map->map_data[i][j]) == 1)
 				return (1);
 		}
 	}
 	return (0);
 }
 
-int	validate_elements_counts(char **map)
+int	validate_elements_counts(t_map *map)
 {
 	int	p;
 	int	e;
